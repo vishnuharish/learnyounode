@@ -4,11 +4,10 @@ module.exports = (folderPath, ext, callback) => {
     const extension = "." + ext;
     fs.readdir(path.normalize(folderPath), (err,data) => {
         if (err){ 
-            callback(err, null)
+            return callback(err, null)
         } 
-         let list = data.filter((file)=>{ return path.extname(file) === extension})
-            callback(null, list)
-        }
+            let result = data.filter((file) => { if(path.extname(file) === extension){ return file }})
+            callback(null, result)
         })
        
 }
